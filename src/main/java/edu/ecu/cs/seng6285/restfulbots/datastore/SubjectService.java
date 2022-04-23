@@ -46,21 +46,30 @@ public class SubjectService {
         // TODO: Add code to get a subject by ID here
 
         // TODO: Do we need to publish to a topic? If so, add the code here.
-
-        // TODO: Remove this once you can return a real object
-        return null;
+        Entity subjectEntity = datastore.get(keyFactory.newKey(subjectId));
+        return entityToSubject(subjectEntity);
     }
 
     public void deleteSubject(long subjectId) {
         // TODO: Add code to delete a subject by ID here
 
         // TODO: Do we need to publish to a topic? If so, add the code here.
+        datastore.delete(keyFactory.newKey(subjectId));
+
+        new Publish
+                .Builder()
+                .forProject(Topics.PROJECT_ID)
+                .toTopic(Topics.SUBJECT_DELETED)
+                .sendId(subjectId)
+                .build()
+                .publish();
     }
 
     public void updateSubject(Subject subject) {
         // TODO: Add code to update a subject by ID here
 
         // TODO: Do we need to publish to a topic? If so, add the code here.
+
     }
 
     private List<Subject> buildSubjects(Iterator<Entity> entities) {
