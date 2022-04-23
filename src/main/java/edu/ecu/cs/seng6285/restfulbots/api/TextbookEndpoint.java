@@ -27,30 +27,29 @@ public class TextbookEndpoint {
     @GetMapping(value = "{textbookId}")
     public Textbook getTextbook(@PathVariable long textbookId) {
         // TODO: Add code to get a specific textbook here
-
-        // TODO: Remove this once you can return a real object
-        return null;
+        return textbookService.getTextbook(textbookId);
     }
 
     @DeleteMapping(value = "{textbookId}")
     public void deleteTextbook(@PathVariable long textbookId) {
         // TODO: Add code to delete a specific textbook here
+        textbookService.deleteTextbook(textbookId);
     }
 
     @PostMapping
     public Textbook createTextbook(@RequestBody Textbook textbook) {
         // TODO: Add code to add a new textbook here
-
-        // TODO: Remove this once you can return a real object
-        return null;
+        Key key = textbookService.createTextbook(textbook);
+        textbook.setId(key.getId());
+        return textbook;   
     }
 
     @PatchMapping(value = "{textbookId}")
     public Textbook updateTextbook(@RequestBody Textbook textbook, @PathVariable long textbookId) {
         // TODO: Add code to update a specific textbook here
-
-        // TODO: Remove this once you can return a real object
-        return null;
+         textbook.setId(textbookId);
+         textbookService.updateTextbook(textbook);
+         return textbook;
     }
 
     @GetMapping(value = "/init")
