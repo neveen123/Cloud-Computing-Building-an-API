@@ -82,6 +82,20 @@ public class TextbookService {
         // TODO: Add code to delete a subject by ID here
 
         // TODO: Do we need to publish to a topic? If so, add the code here.
+         Entity textbookEntity = Entity
+                .newBuilder(datastore.get(keyFactory.newKey(textbook.getId())))
+                .set(Textbook.TEXTBOOK_NAME, textbook.getTextbookName())
+                .set(Textbook.SUBJECT, textbook.getSubject())
+                .build();
+        datastore.update(courseEntity);
+
+        new Publish
+                .Builder()
+                .forProject(Topics.PROJECT_ID)
+                .toTopic(Topics.TEXTBOOK_UPDATED)
+                .sendId(textbook.getId())
+                .build()
+                .publish();
     }
 
     private List<Textbook> buildTextbooks(Iterator<Entity> entities) {
