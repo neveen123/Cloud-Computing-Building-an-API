@@ -69,6 +69,20 @@ public class SubjectService {
         // TODO: Add code to update a subject by ID here
 
         // TODO: Do we need to publish to a topic? If so, add the code here.
+         Entity courseEntity = Entity
+                .newBuilder(datastore.get(keyFactory.newKey(subject.getId())))
+                .set(Subject.SUBJECT_NAME, subject.getSubjectName())
+                .set(Subject.SUBJECT, subject.getSubject())
+                .build();
+        datastore.update(subjectEntity);
+
+        new Publish
+                .Builder()
+                .forProject(Topics.PROJECT_ID)
+                .toTopic(Topics.SUBJECT_UPDATED)
+                .sendId(course.getId())
+                .build()
+                .publish();
 
     }
 
