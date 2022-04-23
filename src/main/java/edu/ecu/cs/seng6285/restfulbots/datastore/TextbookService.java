@@ -59,15 +59,23 @@ public class TextbookService {
         // TODO: Add code to get a textbook by ID here
 
         // TODO: Do we need to publish to a topic? If so, add the code here.
-
-        // TODO: Remove this once you can return a real object
-        return null;
+        Entity textbookEntity = datastore.get(keyFactory.newKey(textbookId));
+        return entityToTextbook(textbookEntity);
     }
 
     public void deleteTextbook(long textbookId) {
         // TODO: Add code to delete a textbook by ID here
 
         // TODO: Do we need to publish to a topic? If so, add the code here.
+        datastore.delete(keyFactory.newKey(textbookId));
+
+        new Publish
+                .Builder()
+                .forProject(Topics.PROJECT_ID)
+                .toTopic(Topics.TEXTBOOK_DELETED)
+                .sendId(textbookId)
+                .build()
+                .publish();
     }
 
     public void updateTextbook(Textbook textbook) {
