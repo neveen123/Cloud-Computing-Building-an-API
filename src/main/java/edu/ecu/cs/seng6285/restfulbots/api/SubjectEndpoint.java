@@ -23,30 +23,29 @@ public class SubjectEndpoint {
     @GetMapping(value = "{subjectId}")
     public Subject getSubject(@PathVariable long subjectId) {
         // TODO: Add code to get a specific subject here
-
-        // TODO: Remove this once you can return a real object
-        return null;
+        return subjectService.getSubject(subjectId);
     }
 
     @DeleteMapping(value = "{subjectId}")
     public void deleteSubject(@PathVariable long subjectId) {
         // TODO: Add code to delete a specific subject here
+        subjectService.deleteSubject(subjectId);
     }
 
     @PostMapping
     public Subject addSubject(@RequestBody Subject subject) {
         // TODO: Add code to add a new subject here
-
-        // TODO: Remove this once you can return a real object
-        return null;
+        Key key = subjectService.createSubject(subject);
+        subject.setId(key.getId());
+        return subject;
     }
 
     @PatchMapping(value = "{subjectId}")
     public Subject updateSubject(@RequestBody Subject subject, @PathVariable long subjectId) {
         // TODO: Add code to update a specific subject here
-
-        // TODO: Remove this once you can return a real object
-        return null;
+         subject.setId(subjectId);
+         courseService.updateSubject(subject);
+         return subject;
     }
 
     @GetMapping(value = "/init")
