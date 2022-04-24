@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Topics {
     // TODO: Change this to your own Project ID!
-    public static final String PROJECT_ID = "gcp-foundations-300902";
+    public static final String PROJECT_ID = "comp-cloud-2022";
 
     public static final String COURSE_CREATED = "course-created";
     public static final String COURSE_UPDATED = "course-updated";
