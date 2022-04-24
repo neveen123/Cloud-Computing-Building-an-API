@@ -84,10 +84,14 @@ public class TextbookService {
         // TODO: Do we need to publish to a topic? If so, add the code here.
          Entity textbookEntity = Entity
                 .newBuilder(datastore.get(keyFactory.newKey(textbook.getId())))
-                .set(Textbook.TEXTBOOK_NAME, textbook.getTextbookName())
+                .set(Textbook.AUTHORS, textbook.getAuthors())
                 .set(Textbook.SUBJECT, textbook.getSubject())
+                .set(Textbook.PUBLISHER, textbook.getPublisher())
+                .set(Textbook.TITLE, textbook.getTitle())
+                .set(Textbook.YEAR, textbook.getYear())
+                .set(Textbook.ID, textbook.getId())
                 .build();
-        datastore.update(courseEntity);
+        datastore.update(textbookEntity);
 
         new Publish
                 .Builder()
